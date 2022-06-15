@@ -25,8 +25,7 @@
         </div>
         <div>
             <label for="itemName" th:text="#{label.item.itemName}">상품명</label>
-            <input
-
+            <input type="text" id="itemName" th:field="*{itemName}"
                    th:class="${errors?.containsKey('itemName')} ? 'form-control field-error' : 'form-control'"
                    class="form-control" placeholder="이름을 입력하세요">
             <div class="field-error" th:if="${errors?.containsKey('itemName')}"th:text="${errors['itemName']}">
