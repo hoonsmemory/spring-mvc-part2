@@ -18,11 +18,11 @@ public class Item {
     @NotBlank(groups = {SaveCheck.class, UpdateCheck.class})
     private String itemName;
 
-    @NotBlank(groups = {SaveCheck.class, UpdateCheck.class})
-    @Range(min = 1000, max = 1000000)
+    @NotNull(groups = {SaveCheck.class, UpdateCheck.class})
+    @Range(min = 1000, max = 1000000, groups = {SaveCheck.class, UpdateCheck.class})
     private Integer price;
 
-    @NotBlank(groups = {SaveCheck.class, UpdateCheck.class})
+    @NotNull(groups = {SaveCheck.class, UpdateCheck.class})
     @Max(value = 9999, groups = SaveCheck.class)
     private Integer quantity;
 
