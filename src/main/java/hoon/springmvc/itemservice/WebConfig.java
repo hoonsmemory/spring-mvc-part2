@@ -12,6 +12,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +30,17 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LogInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/css/**", "/*.ico", "/error");
+                .excludePathPatterns("/css/**", "/*.ico", "/error", "/error-page/**");
 
+        /*
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/", "/members/add", "/login", "/logout", "/css/**", "/*.ico", "/error");
+         */
     }
 
-    @Bean
+    //@Bean
     public FilterRegistrationBean logFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new LogFilter());
@@ -46,6 +49,9 @@ public class WebConfig implements WebMvcConfigurer {
         List<String> urlList = new ArrayList<>();
         urlList.add("/*");
         filterRegistrationBean.setUrlPatterns(urlList);
+
+        filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ERROR);
+
 
         return filterRegistrationBean;
     }

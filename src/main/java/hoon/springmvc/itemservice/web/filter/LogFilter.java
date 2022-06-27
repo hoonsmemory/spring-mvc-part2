@@ -24,12 +24,12 @@ public class LogFilter implements Filter {
         String uuid = UUID.randomUUID().toString();
 
         try {
-            log.info("REQUEST [{}][{}]", uuid, requestURI);
+            log.info("REQUEST [{}][{}][{}]", uuid, request.getDispatcherType(), requestURI);
             chain.doFilter(request, response);
         } catch (Exception e) {
             throw e;
         } finally {
-            log.info("RESPONSE [{}][{}]", uuid, requestURI);
+            log.info("RESPONSE [{}][{}][{}]", uuid, request.getDispatcherType(), requestURI);
         }
     }
 
