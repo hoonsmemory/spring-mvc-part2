@@ -2,6 +2,7 @@ package hoon.springmvc.itemservice.web;
 
 import hoon.springmvc.itemservice.domain.member.Member;
 import hoon.springmvc.itemservice.domain.member.MemberRepository;
+import hoon.springmvc.itemservice.web.argumentresolver.Login;
 import hoon.springmvc.itemservice.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -84,8 +85,21 @@ public class HomeController {
         return "loginHome";
     }
 
-    @GetMapping("/")
+    //@GetMapping("/")
     public String homeLoginV4(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member,
+                              Model model) {
+
+        //로그인 안한 사용자
+        if(member == null) {
+            return "home";
+        }
+
+        model.addAttribute("member", member);
+        return "loginHome";
+    }
+
+    @GetMapping("/")
+    public String homeLoginV5(@Login Member member,
                               Model model) {
 
         //로그인 안한 사용자

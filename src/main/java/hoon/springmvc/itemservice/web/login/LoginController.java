@@ -118,6 +118,7 @@ public class LoginController {
                           @RequestParam(defaultValue = "/") String redirectURL,
                           HttpServletRequest request) {
 
+
         if(bindingResult.hasErrors()) {
             log.error("errors = {}", bindingResult);
             return "login/loginForm";
