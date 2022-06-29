@@ -7,9 +7,12 @@ import hoon.springmvc.itemservice.web.filter.LogFilter;
 import hoon.springmvc.itemservice.web.filter.LoginCheckFilter;
 import hoon.springmvc.itemservice.web.interceptor.LogInterceptor;
 import hoon.springmvc.itemservice.web.interceptor.LoginCheckInterceptor;
+import hoon.springmvc.typeconverter.converter.StringToIntegerConverter;
+import hoon.springmvc.typeconverter.converter.StringToIpPortConverter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,6 +25,12 @@ import java.util.List;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToIntegerConverter());
+        registry.addConverter(new StringToIpPortConverter());
+    }
 
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
