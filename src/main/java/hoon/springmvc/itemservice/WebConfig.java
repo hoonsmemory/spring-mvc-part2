@@ -9,6 +9,7 @@ import hoon.springmvc.itemservice.web.interceptor.LogInterceptor;
 import hoon.springmvc.itemservice.web.interceptor.LoginCheckInterceptor;
 import hoon.springmvc.typeconverter.converter.StringToIntegerConverter;
 import hoon.springmvc.typeconverter.converter.StringToIpPortConverter;
+import hoon.springmvc.typeconverter.formatter.MyNumberFormatter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +29,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToIntegerConverter());
+        
+        //우선순위 컨버터 > 포맷터
+        //registry.addConverter(new StringToIntegerConverter());
         registry.addConverter(new StringToIpPortConverter());
+        registry.addFormatter(new MyNumberFormatter());
     }
 
     @Override
